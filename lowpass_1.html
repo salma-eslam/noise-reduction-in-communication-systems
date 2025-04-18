@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html xmlns="http://www.w3.org/1999/xhtml"><head><base href="https://mosh-proda-us-east-1.mathworks.com/static/igiORMIE/HTMLPagetpfdb5f6685b42471ea66583678c366ffb/lowpass1.html?mre=https%3A%2F%2Fmosh-proda-us-east-1.mathworks.com%2F" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>lowpass1</title><meta name="generator" content="MATLAB 24.2" /><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" /><meta name="DC.date" content="2025-04-18" /><meta name="DC.source" content="lowpass1.m" /><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head>
+
+
+
+
+
+
+
+
+
+
+<body class="mw-theme-light" data-new-gr-c-s-check-loaded="14.1231.0" data-gr-ext-installed="" style="zoom: 100%;">
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#2">Plotting</a>
+</li>
+</ul>
+</div>
+<pre class="codeinput"><span class="comment">% Parameters</span>
+fs = 1e5;              <span class="comment">% Sampling frequency (100 kHz)</span>
+T = 0.01;              <span class="comment">% Duration of the signal (10 ms)</span>
+f_signal = 1e3;        <span class="comment">% Signal frequency (1 kHz)</span>
+fc = 3e3;            <span class="comment">% Cutoff frequency (3 kHz)</span>
+tau = 53e-6;
+t = 0:1/fs:T-1/fs;
+<span class="comment">% Time vector</span>
+rng(0);
+
+<span class="comment">% Generate a clean sinusoidal signal</span>
+clean_signal = sin(2*pi*f_signal*t);
+
+<span class="comment">% Desired SNR before filtering</span>
+desired_snr_before = 10; <span class="comment">% SNR in dB</span>
+
+<span class="comment">% Calculate signal power</span>
+signal_power = rms(clean_signal)^2;
+
+<span class="comment">% Calculate required noise power for the desired SNR</span>
+noise_power = signal_power / (10^(desired_snr_before / 10));
+
+<span class="comment">% Generate Gaussian noise with the calculated power</span>
+noise = sqrt(noise_power) * randn(size(t));
+
+<span class="comment">% Create the noisy signal</span>
+noisy_signal = clean_signal + noise;
+
+<span class="comment">% Initialize filtered signal</span>
+filtered_signal = zeros(size(t));
+dt = 1/fs; <span class="comment">% Time step</span>
+
+<span class="comment">% Solve the first-order low-pass filter ODE</span>
+<span class="keyword">for</span> i = 2:length(t)
+    dYdt = (noisy_signal(i-1) - filtered_signal(i-1)) / tau;
+    filtered_signal(i) = filtered_signal(i-1) + dYdt * dt;
+<span class="keyword">end</span>
+
+
+<span class="comment">% MSE calculations</span>
+mse_noisy = mean((clean_signal - noisy_signal).^2);
+mse_filtered = mean((clean_signal - filtered_signal).^2);
+
+<span class="comment">% SNR calculations</span>
+noise_power_noisy = rms(noisy_signal - clean_signal)^2;
+snr_noisy = 10 * log10(signal_power / noise_power_noisy);
+
+noise_power_filtered = rms(filtered_signal - clean_signal)^2;
+snr_filtered = 10 * log10(signal_power / noise_power_filtered);
+
+<span class="comment">% Ensure SNR after filtering increases</span>
+<span class="keyword">if</span> snr_filtered &lt;= snr_noisy
+    error(<span class="string">'SNR after filtering did not increase. Check the filter parameters.'</span>);
+<span class="keyword">end</span>
+</pre>
+<img vspace="5" hspace="5" src="lowpass1_01.png" alt="" /> <h2 id="2">Plotting</h2>
+<pre class="codeinput"><span class="comment">% Figure 1: Time-domain plots of Clean, Noisy, and Filtered signals</span>
+figure;
+
+<span class="comment">% Clean Signal</span>
+subplot(3, 1, 1);
+plot(t, clean_signal, <span class="string">'b'</span>);
+title(<span class="string">'Clean Signal'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Noisy Signal</span>
+subplot(3, 1, 2);
+plot(t, noisy_signal, <span class="string">'r'</span>);
+title([<span class="string">'Noisy Signal (SNR = '</span> num2str(snr_noisy, <span class="string">'%.2f'</span>) <span class="string">' dB, MSE = '</span> num2str(mse_noisy, <span class="string">'%.5f'</span>) <span class="string">')'</span>]);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Filtered Signal</span>
+subplot(3, 1, 3);
+plot(t, filtered_signal, <span class="string">'g'</span>);
+title([<span class="string">'Filtered Signal (SNR = '</span> num2str(snr_filtered, <span class="string">'%.2f'</span>) <span class="string">' dB, MSE = '</span> num2str(mse_filtered, <span class="string">'%.5f'</span>) <span class="string">')'</span>]);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+
+figure;
+zoom_start = 1; <span class="comment">% Start index for zoom (adjust for zoom range)</span>
+zoom_end = 600; <span class="comment">% End index for zoom (adjust for zoom range)</span>
+plot(t(zoom_start:zoom_end), clean_signal(zoom_start:zoom_end), <span class="string">'b'</span>, <span class="string">'LineWidth'</span>, 1.5); hold <span class="string">on</span>;
+plot(t(zoom_start:zoom_end), noisy_signal(zoom_start:zoom_end), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 1.2);
+plot(t(zoom_start:zoom_end), filtered_signal(zoom_start:zoom_end), <span class="string">'g'</span>, <span class="string">'LineWidth'</span>, 1.2);
+legend(<span class="string">'Clean Signal'</span>, <span class="string">'Noisy Signal'</span>, <span class="string">'Filtered Signal'</span>);
+title(<span class="string">'Zoomed-In Time Domain Comparison'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Display SNR and MSE results</span>
+disp([<span class="string">'SNR Before Filtering: '</span>, num2str(snr_noisy), <span class="string">' dB'</span>]);
+disp([<span class="string">'SNR After Filtering: '</span>, num2str(snr_filtered), <span class="string">' dB'</span>]);
+disp([<span class="string">'MSE of Noisy Signal: '</span>, num2str(mse_noisy)]);
+disp([<span class="string">'MSE of Filtered Signal: '</span>, num2str(mse_filtered)]);
+</pre>
+<pre class="codeoutput">SNR Before Filtering: 10.0087 dB
+SNR After Filtering: 10.0096 dB
+MSE of Noisy Signal: 0.0499
+MSE of Filtered Signal: 0.04989
+</pre>
+<img vspace="5" hspace="5" src="lowpass1_02.png" alt="" /> <img vspace="5" hspace="5" src="lowpass1_03.png" alt="" /> <p class="footer">
+<br />
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB® R2024b</a>
+<br />
+</p>
+</div>
+
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

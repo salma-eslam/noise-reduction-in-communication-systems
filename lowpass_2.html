@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html xmlns="http://www.w3.org/1999/xhtml"><head><base href="https://mosh-proda-us-east-1.mathworks.com/static/igiORMIE/HTMLPagetp6c6860465f654a4cb70637915321b273/lowpass2.html?mre=https%3A%2F%2Fmosh-proda-us-east-1.mathworks.com%2F" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>lowpass2</title><meta name="generator" content="MATLAB 24.2" /><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" /><meta name="DC.date" content="2025-04-18" /><meta name="DC.source" content="lowpass2.m" /><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head>
+
+
+
+
+
+
+
+
+
+
+<body data-new-gr-c-s-check-loaded="14.1231.0" data-gr-ext-installed="" class="mw-theme-light" style="zoom: 100%;">
+<div class="content">
+<h1></h1>
+
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Step 1: Define Parameters</a>
+</li>
+<li>
+<a href="#2">Step 2: Generate Clean Signal</a>
+</li>
+<li>
+<a href="#3">Step 3: Add Realistic Impulse Noise with SNR tuning</a>
+</li>
+<li>
+<a href="#4">Step 4: Design the Discrete RC Low-Pass Filter</a>
+</li>
+<li>
+<a href="#5">Step 5: Apply the Filter</a>
+</li>
+<li>
+<a href="#6">Step 6: Compute Performance Metrics</a>
+</li>
+<li>
+<a href="#7">Step 7: Plot the Results</a>
+</li>
+<li>
+<a href="#8">Step 8: Display Performance Metrics</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Step 1: Define Parameters</h2>
+<pre class="codeinput">fs = 1e5;               <span class="comment">% Sampling frequency (100 kHz)</span>
+signal_freq = 1e3;      <span class="comment">% Signal frequency (1 kHz)</span>
+cutoff_freq = 3e3;
+tau = 1/(2*pi*cutoff_freq);            <span class="comment">% Time constant (10 kΩ * 10 nF = 1e-4</span>
+T = 0.01;               <span class="comment">% Simulation duration (10 ms)</span>
+
+<span class="comment">% Time vector</span>
+t = 0:1/fs:T-1/fs;
+</pre>
+<h2 id="2">Step 2: Generate Clean Signal</h2>
+<pre class="codeinput">clean_signal = sin(2*pi*signal_freq*t);  <span class="comment">% 1 kHz sine wave</span>
+</pre>
+<h2 id="3">Step 3: Add Realistic Impulse Noise with SNR tuning</h2>
+<pre class="codeinput">rng(1);  <span class="comment">% Seed for reproducibility</span>
+impulse_noise = zeros(size(t));
+num_impulses = 100;
+impulse_indices = randperm(length(t), num_impulses);
+
+<span class="comment">% Create random impulses with base range</span>
+base_min = 0.3;
+base_max = 1.5;
+impulse_vals = base_min + (base_max - base_min).*rand(1, num_impulses);
+impulse_vals = impulse_vals .* sign(randn(1, num_impulses));
+impulse_noise(impulse_indices) = impulse_vals;
+
+<span class="comment">% Scale impulses to get SNR_before = 10 dB</span>
+target_snr = 10;  <span class="comment">% in dB</span>
+signal_power = mean(clean_signal.^2);
+noise_base = impulse_noise;
+scaling_factor = sqrt(signal_power / (10^(target_snr/10) * mean(noise_base.^2)));
+impulse_noise = scaling_factor * noise_base;
+
+<span class="comment">% Combine with signal</span>
+noisy_signal = clean_signal + impulse_noise;
+</pre>
+<h2 id="4">Step 4: Design the Discrete RC Low-Pass Filter</h2>
+<pre class="codeinput">alpha = 1 / (1 + tau * 2*pi*cutoff_freq);  <span class="comment">% Discrete filter coefficient</span>
+b = alpha;
+a = [1, -(1 - alpha)];
+</pre>
+<h2 id="5">Step 5: Apply the Filter</h2>
+<pre class="codeinput">filtered_signal = filter(b, a, noisy_signal);
+</pre>
+<h2 id="6">Step 6: Compute Performance Metrics</h2>
+<pre class="codeinput">compute_snr = @(ref, err) 10 * log10(mean(ref.^2) / mean(err.^2));
+snr_before = compute_snr(clean_signal, noisy_signal - clean_signal);
+snr_after  = compute_snr(clean_signal, filtered_signal - clean_signal);
+
+mse_noisy    = mean((clean_signal - noisy_signal).^2);
+mse_filtered = mean((clean_signal - filtered_signal).^2);
+</pre>
+<h2 id="7">Step 7: Plot the Results</h2>
+<pre class="codeinput">figure(<span class="string">'Name'</span>,<span class="string">'Scenario 2: Impulse Noise Rejection'</span>,<span class="string">'NumberTitle'</span>,<span class="string">'off'</span>);
+
+subplot(3,1,1);
+plot(t, clean_signal, <span class="string">'b'</span>);
+title(<span class="string">'Clean Signal (1 kHz sine)'</span>);
+xlabel(<span class="string">'Time (s)'</span>); ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(t, noisy_signal, <span class="string">'r'</span>);
+title(sprintf(<span class="string">'Noisy Signal (SNR = %.2f dB, MSE = %.5f)'</span>, snr_before, mse_noisy));
+xlabel(<span class="string">'Time (s)'</span>); ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(t, filtered_signal, <span class="string">'k'</span>);
+title(sprintf(<span class="string">'Filtered Signal (SNR = %.2f dB, MSE = %.5f)'</span>, snr_after, mse_filtered));
+xlabel(<span class="string">'Time (s)'</span>); ylabel(<span class="string">'Amplitude'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Zoomed-In Time Domain Comparison</span>
+figure(<span class="string">'Name'</span>,<span class="string">'Zoomed-In Comparison'</span>,<span class="string">'NumberTitle'</span>,<span class="string">'off'</span>);
+plot(t*1e3, clean_signal, <span class="string">'b'</span>,<span class="string">'LineWidth'</span>,1.2); hold <span class="string">on</span>;
+plot(t*1e3, noisy_signal, <span class="string">'r'</span>,<span class="string">'LineWidth'</span>,0.5);
+plot(t*1e3, filtered_signal, <span class="string">'k'</span>,<span class="string">'LineWidth'</span>,1.2);
+xlim([0 6]);
+title(<span class="string">'Zoomed-In Time Domain Comparison'</span>);
+xlabel(<span class="string">'Time (ms)'</span>); ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Clean Signal'</span>,<span class="string">'Noisy Signal'</span>,<span class="string">'Filtered Signal'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="lowpass2_01.png" alt="" /> <img vspace="5" hspace="5" src="lowpass2_02.png" alt="" /> <h2 id="8">Step 8: Display Performance Metrics</h2>
+<pre class="codeinput">fprintf(<span class="string">'\n&gt;&gt; LPF\n'</span>);
+fprintf(<span class="string">'SNR Before Filtering: %.4f dB\n'</span>, snr_before);
+fprintf(<span class="string">'SNR After Filtering: %.4f dB\n'</span>, snr_after);
+fprintf(<span class="string">'MSE of Noisy Signal: %.5f\n'</span>, mse_noisy);
+fprintf(<span class="string">'MSE of Filtered Signal: %.5f\n'</span>, mse_filtered);
+</pre>
+<pre class="codeoutput">&gt;&gt; LPF
+SNR Before Filtering: 10.0000 dB
+SNR After Filtering: 14.0446 dB
+MSE of Noisy Signal: 0.05000
+MSE of Filtered Signal: 0.01970
+</pre>
+<p class="footer">
+<br />
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB® R2024b</a>
+<br />
+</p>
+</div>
+
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
